@@ -1,14 +1,13 @@
-FROM sameersbn/ubuntu:14.04.20160121
-MAINTAINER sameer@damagehead.com
+FROM java:7-jre
+MAINTAINER dkhmailto@googlemail.com
 
-ENV OPENFIRE_VERSION=3.10.3 \
+ENV OPENFIRE_VERSION=4.0.1 \
     OPENFIRE_USER=openfire \
     OPENFIRE_DATA_DIR=/var/lib/openfire \
     OPENFIRE_LOG_DIR=/var/log/openfire
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-7-jre \
- && wget "http://download.igniterealtime.org/openfire/openfire_${OPENFIRE_VERSION}_all.deb" -O /tmp/openfire_${OPENFIRE_VERSION}_all.deb \
+RUN set -x \
+ && curl -sSL "http://download.igniterealtime.org/openfire/openfire_${OPENFIRE_VERSION}_all.deb" -o /tmp/openfire_${OPENFIRE_VERSION}_all.deb \
  && dpkg -i /tmp/openfire_${OPENFIRE_VERSION}_all.deb \
  && mv /var/lib/openfire/plugins/admin /usr/share/openfire/plugin-admin \
  && rm -rf openfire_${OPENFIRE_VERSION}_all.deb \
