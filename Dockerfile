@@ -7,6 +7,8 @@ ENV OPENFIRE_VERSION=4.0.1 \
     OPENFIRE_LOG_DIR=/var/log/openfire
 
 RUN set -x \
+ && apt-get update \
+ && apt-get install sudo \
  && curl -sSL "http://download.igniterealtime.org/openfire/openfire_${OPENFIRE_VERSION}_all.deb" -o /tmp/openfire_${OPENFIRE_VERSION}_all.deb \
  && dpkg -i /tmp/openfire_${OPENFIRE_VERSION}_all.deb \
  && mv /var/lib/openfire/plugins/admin /usr/share/openfire/plugin-admin \
